@@ -1,1 +1,1 @@
-local a=term.write;function term.write(b)return a(tostring(b):gsub(".",function(c)return string.char((c:byte()-1)%32+129)end))end
+local a,b=term.write,term.blit;function _G.term.write(b)return a(tostring(b):gsub(".",function(c)return string.char((c:byte()-1)%32+129)end))end;function _G.term.blit(q,a,d)return b(tostring(q):gsub(".",function(c)return string.char((c:byte()-1)%32+129)end),a,d)end
