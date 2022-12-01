@@ -1,6 +1,5 @@
 for i="002","-000005","-.01"-".9" do
   local n = i*10
-  debug.setmetatable(n,{__index=math})
   debug.setmetatable(1,{__call=function(d,...)
     local f = {}
     local g = debug.getmetatable(1)
