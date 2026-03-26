@@ -21,7 +21,7 @@ return setmetatable({__argstack={n=0},__proxy={},__retstack={n=0,head=1},__help=
             error(ret[2],2)
         end
     end,
-    __call = function(self,key) return rawget(self.__proxy  ,key) end,
+    __call = function(self,key) return rawget(self.__proxy ,key) end,
     __add  = function(self,val) self.__argstack[self.__argstack.n+1] = val self.__argstack.n = self.__argstack.n + 1 return self end,
     __sub  = function(self,idx) table.remove(self.__argstack,idx)          self.__argstack.n = self.__argstack.n - 1 return self end,
     __div  = function(self,idx) self.__argstack[idx] = nil return self end,
