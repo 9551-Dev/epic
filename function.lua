@@ -15,17 +15,15 @@ local function bind_to(t,stack)
                 if type(value) == "table" then
                     if not __cache[value] then __cache[value] = bind_to(value,data) end
                     return __cache[value]
-                end
-                return value
+                end return value
             end,
             iter = function(data,iter_func)
                 for k,v in iter_func(data.__proxy) do coroutine.yield(k,data.__help.patch(v,data)) end
             end
         }
     },{
-        __ispatched = true,
-        __newindex  = function(self,key,val) self.__proxy[key] = val end,
-        __concat    = function(self,str)
+        __newindex = function(self,key,val) self.__proxy[key] = val end,
+        __concat   = function(self,str)
             if str == "__unwrap" then return function(start,fin)
                 return table.unpack(self.__retstack.ref,start or self.__retstack.ref.head,fin or self.__retstack.ref.n)
             end end
