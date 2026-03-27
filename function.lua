@@ -30,7 +30,7 @@ local function bind_to(t,stack)
         end,
         __pairs  = function(self) return coroutine.wrap(function() self.__help.iter(self,_G.pairs)  end) end,
         __ipairs = function(self) return coroutine.wrap(function() self.__help.iter(self,_G.ipairs) end) end,
-        __index = function(self,key)
+        __index  = function(self,key)
             local target = self.__proxy[key]
             if type(target) == "function" then
                 local argstack = self.__argstack.ref
@@ -60,7 +60,7 @@ local function bind_to(t,stack)
         __le  = function(self,cnt)  self.__retstack.ref = self.__help.shift(self.__retstack.ref,-cnt) return self end,
         __len = function()          return  data.__retstack.ref.n end,
         __mul = function(self,head) self.__argstack.ref,self.__retstack.ref = {n=0},{n=0,head=head} return self end,
-        __pow = function(self,head) self.__retstack.ref.head = head end
+        __pow = function(self,head) self.__retstack.ref.head = head return self end
     })
 end
 
