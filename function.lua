@@ -58,7 +58,7 @@ local function bind_to(t,stack)
         __unm = function(self)      self.__retstack.ref.head = self.__retstack.ref.head + 1 return self.__retstack.ref[self.__retstack.ref.head] end,
         __lt  = function(self,cnt)  self.__argstack.ref = self.__help.shift(self.__argstack.ref,-cnt) return self end,
         __le  = function(self,cnt)  self.__retstack.ref = self.__help.shift(self.__retstack.ref,-cnt) return self end,
-        __len = function()          return  data.__retstack.ref.n end,
+        __len = function()          return data.__retstack.ref.n end,
         __mul = function(self,head) self.__argstack.ref,self.__retstack.ref = {n=0},{n=0,head=head} return self end,
         __pow = function(self,head) self.__retstack.ref.head = head return self end
     })
