@@ -3,8 +3,8 @@ local function bind_to(t,stack)
     return setmetatable({
         __proxy = t or {},
         __cache = __cache,
-        __argstack = stack and stack.__argstack or {ref={n=0}},
-        __retstack = stack and stack.__retstack or {ref={n=0,head=1}},
+        __argstack = stack and stack.__argstack or {ref={n=1}},
+        __retstack = stack and stack.__retstack or {ref={n=1,head=1}},
         __help = {
             shift = function(t,n)
                 local new = {n=(n>=0) and t.n+n or math.max(0,t.n-n),head=t.head}
@@ -51,8 +51,8 @@ local function bind_to(t,stack)
         __call = function(self,key)
             return self.__help.patch(self,self.__proxy[key])
         end,
-        __add = function(self,val)  self.__argstack.ref[self.__argstack.ref.n+1] = val self.__argstack.ref.n = self.__argstack.ref.n + 1 return self end,
-        __sub = function(self,idx)  table.remove(self.__argstack.ref,idx)              self.__argstack.ref.n = self.__argstack.ref.n - 1 return self end,
+        __add = function(self,val)  self.__argstack.ref.n = self.__argstack.ref.n + 1 self.__argstack.ref[self.__argstack.ref.n] = val return self end,
+        __sub = function(self,idx)  self.__argstack.ref.n = self.__argstack.ref.n - 1 table.remove(self.__argstack.ref,idx)  return self end,
         __div = function(self,idx)  self.__argstack.ref[idx] = nil return self end,
         __mod = function(self,idx)  return self.__retstack.ref[idx] end,
         __unm = function(self)      self.__retstack.ref.head = self.__retstack.ref.head + 1 return self.__retstack.ref[self.__retstack.ref.head] end,
