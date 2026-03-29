@@ -52,7 +52,7 @@ local function bind_to(t,stack)
             return self.__help.patch(self,self.__proxy[key])
         end,
         __add = function(self,val)  self.__argstack.ref.n = self.__argstack.ref.n + 1 self.__argstack.ref[self.__argstack.ref.n] = val return self end,
-        __sub = function(self,idx)  self.__argstack.ref.n = self.__argstack.ref.n - 1 table.remove(self.__argstack.ref,idx)  return self end,
+        __sub = function(self,idx)  self.__argstack.ref.n = self.__argstack.ref.n - 1 table.remove(self.__argstack.ref,idx)            return self end,
         __div = function(self,idx)  self.__argstack.ref[idx] = nil return self end,
         __mod = function(self,idx)  return self.__retstack.ref[idx] end,
         __unm = function(self)      self.__retstack.ref.head = self.__retstack.ref.head + 1 return self.__retstack.ref[self.__retstack.ref.head] end,
